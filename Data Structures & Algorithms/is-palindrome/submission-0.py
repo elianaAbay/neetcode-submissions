@@ -1,8 +1,15 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        s1 = re.sub(r'[^a-zA-Z0-9]', '', s)
-        
-        s1 = s1.lower()
-     
-        return s1 == s1[::-1]
-                
+        s = s.strip()
+        s = re.sub(r'[^a-zA-Z0-9]', '', s)
+        s = s.lower()
+
+        left, right = 0, len(s) - 1
+
+        while left <= right:
+            if s[left] != s[right]:
+                return False
+
+            right -= 1
+            left += 1
+        return True
