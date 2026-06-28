@@ -1,13 +1,17 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         
-        dic = {}
-
+        d = {}
         for i in strs:
-            key = "".join(sorted(i))
-            if key not in dic:
-                dic[key] = [i]
+            j = "".join(sorted(i))
+
+            if j  in d:
+                d[j].append(i)
             else:
-                dic[key].append(i)
-        res = list(dic.values())
+                d[j] = [i]
+
+        res = list(d.values())
         return res
+     
+            
+        
