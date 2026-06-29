@@ -1,36 +1,32 @@
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
-        arthemetics = ['+', '-', '*', '/']
-        value = 0
 
+        
         for i in tokens:
-            if i not in arthemetics:
-                stack.append(i)
-         
-            else:
-                if len(stack) >= 2:
-
-                    value1 = stack.pop()
-                    value1 = int(value1)
-                    value2 = stack.pop()
-                    value2 = int(value2)
-                    if i == "+":
-                        value = value2 + value1
-                        stack.append(value)
-                    elif i == "-":
-                        value = value2 - value1
-                        stack.append(value)
-                    elif i == "*":
-                        value = value2 * value1
-                        stack.append(value)
-                    else:
-                        value = value2 / value1
-                        stack.append(value)
-
-        return int(stack.pop())
             
+            if i == "+":
+                val1 = stack.pop()
+                val2 = stack.pop()
+                stack.append(int(val2)  + int(val1))
+            elif i == "-":
+                val1 = stack.pop()
+                val2 = stack.pop()
+                stack.append(int(val2)  - int(val1))
+            elif i == "/":
+                val1 = stack.pop()
+                val2 = stack.pop()
+                res = int(val2) / int(val1)
+                stack.append(res)
+            elif i == "*":
+                val1 = stack.pop()
+                val2 = stack.pop()
+                res = int(val2) * int(val1)
+                stack.append(res)
+            else:
+                stack.append(i)
+        
+        return int(stack.pop())
 
-                    
 
         
