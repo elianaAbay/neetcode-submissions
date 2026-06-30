@@ -1,20 +1,19 @@
 class Solution:
     def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
-        res, sol = [],[]
-        n = len(nums)
+        res = []
 
-        def backtrack(i, cur_sum):
-            if cur_sum == target:
-                res.append(sol.copy())
+        def backtrack(i, current, total):
+            if total == target:
+                res.append(current.copy())
                 return 
             
-            if cur_sum > target or i == n:
+            if i >= len(nums) or total > target:
                 return 
-            
-            backtrack(i+1, cur_sum)
-            sol.append(nums[i])
-            backtrack(i, cur_sum + nums[i])
-            sol.pop()
 
-        backtrack(0, 0)
+            current.append(nums[i])
+            backtrack(i, current, total + nums[i])
+            current.pop()
+            backtrack(i+1, current, total)
+
+        backtrack(0,[],0)
         return res
