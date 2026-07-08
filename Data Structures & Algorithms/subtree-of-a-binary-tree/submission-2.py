@@ -5,28 +5,29 @@
 #         self.left = left
 #         self.right = right
 
-class Solution:   
-    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-
-        if not root:
-            return False 
-        if not subRoot:
-            return False 
-
-        if self.isSameTree(root, subRoot):
-            return True 
-        
-        return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
-        
+class Solution: 
 
     def isSameTree(self, root, subRoot):
         if not root and not subRoot:
             return True
-        # one is None, not both
-        if not root or not subRoot:
-            return False
+        
+        if root and subRoot:
+            if root.val == subRoot.val:
+                return (self.isSameTree(root.left, subRoot.left) and self.isSameTree(root.right, subRoot.right))
+            
+        return False
+            
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        if subRoot == None:
+            return True 
 
-        if root.val != subRoot.val:
+        if root == None:
             return False 
+        
+        
+        if self.isSameTree(root, subRoot):
+            return True 
 
-        return self.isSameTree(root.left, subRoot.left) and self.isSameTree(root.right, subRoot.right)
+        return (self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot))
+        
+        
