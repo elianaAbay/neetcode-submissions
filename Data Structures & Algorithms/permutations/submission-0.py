@@ -1,18 +1,25 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
+        res= []
+        lst = []
+        seen = set()
 
-        if len(nums) == 0:
-            return [[]]
+        def backtrack():
+            if len(lst) == len(nums):
+                res.append(lst.copy())
+                return 
             
-        
-        perms = self.permute(nums[1:])
-        res = []
+            for num in nums:
+                if num in seen:
+                    continue 
+                
+                lst.append(num)
+                seen.add(num)
+                backtrack()
+                lst.pop()
+                backtrack()
+                seen.remove(num)
 
-        for p in perms:
-            for i in range(len(p) + 1):
-                p_copy = p.copy()
-
-                p_copy.insert(i, nums[0])
-                res.append(p_copy)
-
-        return res 
+        backtrack()
+        return res
+                
